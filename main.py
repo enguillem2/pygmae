@@ -20,11 +20,19 @@ snail_x0=100
 
 player_surface = pygame.image.load('graphics/Player/player_walk_1.png').convert_alpha()
 player_rect = player_surface.get_rect(midbottom=(80,sky_surface.get_height()))
+player_gravity=0
+
 while True:
   for event in pygame.event.get():
     if event.type == pygame.QUIT:
       pygame.quit()
       exit()
+
+    if event.type == pygame.KEYDOWN:
+      if event.key == pygame.K_SPACE:
+        print("jump")
+    if event.type == pygame.KEYUP:
+      print("key up")
   
   #screen.blit(test_surface,(200,100))
   screen.blit(sky_surface,(0,0))
@@ -36,7 +44,12 @@ while True:
     snail_x0=screen.get_width()+snail_surface.get_width()
   screen.blit(snail_surface,(snail_x0,250))
 
+  #player
+  player_gravity+=1
+  player_rect.y += player_gravity
   screen.blit(player_surface,player_rect)
+
+  
 
   pygame.display.update()
   clock.tick(60)
